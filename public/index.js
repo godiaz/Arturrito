@@ -64,7 +64,7 @@ $(document).ready(function() {
         $('.products-module').append(dom);
     });
     usrCompra(function(dom) {
-        $('.compra-module').append(dom);
+        $('.cart-module').append(dom);
     });
 
 
