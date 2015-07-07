@@ -1,121 +1,89 @@
+function produkts(callback) {
 
-var productillos = function(callback) {
-
-    $.getJSON("/getproducts", function(result) {
-        var html = '<div> ' +
-            '<ul class="products-list">';
-
+    $.getJSON("/getProducts", function(result) {
+        var $html = $('<ul class="cart-list"></ul>');
 
 
         result.Products.forEach(function(data) {
 
-            var elem =
-
-                '<li class="products-list-item"' +
+            var $elem = '<li class="products-list-item"' +
                 'id="' + data._id + '">' +
-                '<div>' + data.name + '</div>' +
-                '<div>' + '<button ' + ' id="' + data._id + '" ' + '> Comprar </button>'
-            '</div>'
+                '<div>' + data.name + '</div>'
             '</li>';
 
-            html += elem;
-        });
+            $elem = $($elem);
 
-        html += '</ul>' +
-            '</div>';
+            var $button = $('<div>' + '<button ' + ' id="' + data._id + '" ' + '> Agregar al Carrito </button>').click(function(e) {
 
-        callback(html);
-    });
-};
+                var hora = data;
+                console.log(hora);
+                $.getJSON("/getUserCart", function(data) {
+                        
+                        console.log(data);
+                        // var jean = data.["Cart"].push(hora);
+                        // console.log(jean);
+                    
+
+                });
 
 
-var usrCompra = function(callback) {
-
-    $.getJSON("/getUserCart", function(result) {
-        var $html = $('<ul class="cart-list"></ul>');
-
-        result.Cart.forEach(function(data) {
-
-            var $elem ='<li class="cart-list-item"' +
-                'id="' + data._id + '">' +
-                '<div>' + data.productos + '</div>'
-                '</li>'; 
-
-                $elem = $($elem); 
-
-            var $button = $('<div>' + '<button ' + ' id="'+ data._id +'" ' + '> Comprar </button>').click(function (e){
-                  var e = $(this); 
-                  e.attr('id');  
-            }); 
+            });
 
             $elem.append($button);
-        }); 
+            $html.append($elem);
+        });
 
-        //jquery transform
-        $html = $($html);
+
 
         callback($html);
+
     });
 
 };
 
-$(document).ready(function() {
-    productillos(function(dom) {
-        $('.products-module').append(dom);
-    });
-    usrCompra(function(dom) {
-        $('.cart-module').append(dom);
-    });
+var rat = [];
 
 
-});
+// function getUserCart(callback) {
 
-// var carrito = function (callback){
-//     $.getJSON("/getcompras", function (result) {
-//        var html = '<div> '+
-//           '<ul class="compras-list">';
+//     $.getJSON("/getUserCart", function(result) {
+//         var $html = $('<ul class="cart-list"></ul>');
 
-//        result.Compras.forEach(function (data){
-//             var elem = '<li class="compras-list-item"' +
-//              'id="'+ data._id +'">' +
-//              '<div>'+ data.productos + '</div>' +
+
+//         result.Cart.forEach(function(data) {
+
+//             var $elem = '<li class="cart-list-item"' +
+//                 'id="' + data._id + '">' +
+//                 '<div>' + data.name + '</div>'
 //             '</li>';
 
-//             html += elem;
-//        });
+//             $elem = $($elem);
 
-//        html += '</ul>' +
-//        '</div>';
 
-//         callback(html);
+//             var $button = $('<div>' + '<button ' + ' id="' + data._id + '" ' + '> Eliminar </button>').click(function(e) {
+//                 console.log(rat);
+
+
+//             });
+
+//             $elem.append($button);
+//             $html.append($elem);
+//         });
+
+//         callback($html);
+
 //     });
+
 // };
 
-// carrito(function (dom){
-//   $('.carrito-compras').append(dom);
-// });
 
-//Formulatio de Validación
+$(document).ready(function() {
 
-// function validateForm() {
-//         var username = document.getElementById(/*"username"*/).value;
-//         var password = document.getElementById(/*"password"*/).value;
-//         if (username == null || username == "") {
-//             alert("Por favor, poné tu Nombre de Usuario.");
-//             return false;
-//         }
-//         if (password == null || password == "") {
-//             alert("Porque favor, poné tu contraseña.");
-//             return false;
-//         }
-//         alert("Conectado");
-//         onSuccsess(client);
-//     }
+    produkts(function(dom) {
+        $('.products-module').append(dom);
+    });
+    // getUserCart(function(dom) {
+    //     $('.cart-module').append(dom);
+    // });
 
-//     if (password == null || password == "") {
-//         alert("Porque favor, poné tu contraseña.");
-//         return false;
-//     }
-//     alert("Conectado");
-//     onSuccsess(client);
-// }
+});
