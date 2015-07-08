@@ -79,7 +79,6 @@ function createProductItem(data) {
 
     //agrega los productos a la canasta/carrito
     var $button = $('<button ' + ' id="' + data._id + '" ' + '> Agregar al Carrito </button>').click(function(e) {
-        console.log(data);
         var $elem = $(this);
         products.forEach(function(value) {
             if (value._id === $elem.attr('id')) {
