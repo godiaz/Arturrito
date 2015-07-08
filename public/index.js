@@ -56,7 +56,8 @@ function createCartItem(data) {
 
 
         //$.ajax(url, {method:"POST"})
-        $.ajax("/getUserCart", {
+        $.ajax("/addproductcart", {
+            method: "POST",
             success: function(data) {
                 console.log(data)
             }
@@ -78,6 +79,7 @@ function createProductItem(data) {
 
     //agrega los productos a la canasta/carrito
     var $button = $('<button ' + ' id="' + data._id + '" ' + '> Agregar al Carrito </button>').click(function(e) {
+        console.log(data);
         var $elem = $(this);
         products.forEach(function(value) {
             if (value._id === $elem.attr('id')) {
@@ -85,11 +87,9 @@ function createProductItem(data) {
                 $('.cart-list').append(createCartItem(value));
 
                 //$.ajax(url, {method:"POST"})
-                $.ajax("/getUserCart", {
-                    success: function(data) {
-                        console.log(data)
-                    }
-                })
+                $.post("/addproductcart",{}).done(function(data) {
+                    
+                });
             }
         });
     });
