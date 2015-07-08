@@ -45,16 +45,22 @@ function createCartItem(data) {
 
     $elem = $($elem);
 
-    //eliminar producto de la canasta
+    //aqui se eliminan los productos del carrito
     var $button = $('<button ' + ' id="' + data._id + '" ' + '> Eliminar </button>').click(function(e) {
-        //primero se busca por id y despues por clase todo junto
-        //para tomar los elementos que aplican a los dos criterios
-        //.first() es para tomar el primero si hay varios items que apliquen al mismo criterio, ej 2 elementos de carrito con bateria arduino
-        $('#'+data._id+'.cart-list-item').first().remove();
+
+        //1ro se busca el id del producto y luego su clase
+        //toma estos elementos y
+        //en el caso que haya mas de uno, .first() toma el primero
+
+        $('#' + data._id + '.cart-list-item').first().remove();
 
 
-        //aca falta enviarle al server este producto para q lo ELIMINE del carrito de este usuario
-        //USAR AJAXS post
+        //$.ajax(url, {method:"POST"})
+        $.ajax("/getUserCart", {
+            success: function(data) {
+                console.log(data)
+            }
+        })
     });
 
     $elem.append($button);
@@ -70,16 +76,20 @@ function createProductItem(data) {
 
     $elem = $($elem);
 
-    //agregar prodcuto a la canasta
+    //agrega los productos a la canasta/carrito
     var $button = $('<button ' + ' id="' + data._id + '" ' + '> Agregar al Carrito </button>').click(function(e) {
         var $elem = $(this);
         products.forEach(function(value) {
             if (value._id === $elem.attr('id')) {
                 cart.push(value);
                 $('.cart-list').append(createCartItem(value));
-                //aca falta enviarle al server este producto para q lo agrege al carrito de este usuario
-                //
-                //USAR AJAXS post
+
+                //$.ajax(url, {method:"POST"})
+                $.ajax("/getUserCart", {
+                    success: function(data) {
+                        console.log(data)
+                    }
+                })
             }
         });
     });
