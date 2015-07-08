@@ -48,10 +48,12 @@ app.post('/login', function (req, res) {
 	});
 });
 
-app.post('/addproductcart', function (req, res) {
+app.post('/addProductCart', function (req, res) {
 	res.setHeader('Content-Type', 'application/json');
+	dataManager.getProductCart(function (data){
 	console.log("INFO: sending product cart data... ");
-	res.send("cart");
+	res.send(data);
+	})
 });
 
 var server = app.listen(3000, function () {

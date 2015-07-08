@@ -29,7 +29,7 @@ var getUsers = function(callback){
     });
 };
 
-var getUserCart = function(callback){
+var addProductCart = function(callback){
 	fs.readFile('./data/carrito.json', function (err, data) {
 		if (err) { throw err; }
 			callback(data.toString());
@@ -40,5 +40,5 @@ module.exports = {
 	getProducts: getProducts,
 	getCompras: getCompras,
 	getUsers: getUsers,
-	getUserCart: getUserCart
+	addProductCart: addProductCart
 };
