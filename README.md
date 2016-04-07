@@ -1,4 +1,4 @@
 # Arturrito
 TP Final CoderHouse
 
-E-commerce model.
+E-Commerce model.
